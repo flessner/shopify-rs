@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use shopify_rs::storefront::*;
+use shopify_storefront::*;
 use std::env;
 
 #[cfg(not(target_family = "wasm"))]

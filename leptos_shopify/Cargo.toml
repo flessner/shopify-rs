@@ -2,7 +2,8 @@
 name = "leptos_shopify"
 version = "0.1.0"
 edition = "2024"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 leptos = "0.8"
-shopify_rs = { path = "../shopify_rs" }
+shopify_storefront = { path = "../shopify_storefront" }
