@@ -1088,7 +1088,7 @@ name = "leptos_shopify"
 version = "0.1.0"
 dependencies = [
  "leptos",
- "shopify_storefront",
+ "shopify_storefront 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1920,6 +1920,18 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 [[package]]
 name = "shopify_storefront"
 version = "0.1.0"
+dependencies = [
+ "gloo-net",
+ "reqwest",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "shopify_storefront"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc12cf8f33275af16a7cad5ff4ce9d9c84025ad60a28a05831969abefa195e01"
 dependencies = [
  "gloo-net",
  "reqwest",
