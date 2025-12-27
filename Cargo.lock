@@ -1088,7 +1088,7 @@ name = "leptos_shopify"
 version = "0.1.0"
 dependencies = [
  "leptos",
- "shopify_storefront 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shopify_storefront",
 ]
 
 [[package]]
@@ -1925,18 +1925,17 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
+ "tokio",
 ]
 
 [[package]]
-name = "shopify_storefront"
-version = "0.1.0"
+name = "signal-hook-registry"
+version = "1.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc12cf8f33275af16a7cad5ff4ce9d9c84025ad60a28a05831969abefa195e01"
+checksum = "c4db69cba1110affc0e9f7bcd48bbf87b3f4fc7c61fc9155afd4c469eb3d6c1b"
 dependencies = [
- "gloo-net",
- "reqwest",
- "serde",
- "serde_json",
+ "errno",
+ "libc",
 ]
 
 [[package]]
@@ -2161,9 +2160,23 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
+ "parking_lot",
  "pin-project-lite",
+ "signal-hook-registry",
  "socket2",
+ "tokio-macros",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "2.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af407857209536a95c8e56f8231ef2c2e2aff839b22e07a1ffcbc617e9db9fa5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

@@ -21,6 +21,17 @@ cargo add shopify_storefront
 ```
 
 
+## Examples
+
+Run the example using Shopify's mock shop:
+
+```
+cargo run --example storefront_mock
+```
+
+This will fetch and display shop information and collections from `mock.shop`.
+
+
 ## Disclaimer & License
 
 This is an unofficial, community-maintained Rust client for the Shopify Storefront API. It is not affiliated with, endorsed by, or supported by Shopify Inc.

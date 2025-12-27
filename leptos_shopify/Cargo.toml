@@ -9,4 +9,4 @@ repository = "https://github.com/flessner/shopify-rs"
 
 [dependencies]
 leptos = "0.8"
-shopify_storefront = "0.1.0"
+shopify_storefront = { path = "../shopify_storefront" }
