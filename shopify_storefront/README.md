@@ -21,15 +21,11 @@ cargo add shopify_storefront
 ```
 
 
-## Examples
+## Changelog
 
-Run the example using Shopify's mock shop:
-
-```
-cargo run --example storefront_mock
-```
-
-This will fetch and display shop information and collections from `mock.shop`.
+| Version | Shopify Storefront API |
+|---------|------------------------|
+| 0.1.x   | 2026-01                |
 
 
 ## Disclaimer & License
