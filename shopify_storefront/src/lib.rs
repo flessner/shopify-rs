@@ -3,10 +3,11 @@
 /// # Schema
 ///
 /// The vendored GraphQL schema lives at `schemas/storefront.graphql`.
-/// Reference it in your `cynic::use_schema!` or `#[cynic::schema(...)]`
-/// attributes to derive strongly-typed query fragments.
 mod client;
 mod error;
+
+pub mod queries;
+pub mod types;
 
 pub use client::Client;
 pub use error::{Error, GraphqlError};

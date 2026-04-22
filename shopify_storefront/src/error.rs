@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 /// A GraphQL error returned by the Shopify Storefront API.
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct GraphqlError {
     pub message: String,
     #[serde(default)]
@@ -24,6 +24,10 @@ pub enum Error {
     /// The API returned one or more GraphQL errors.
     #[error("GraphQL errors: {}", format_errors(.0))]
     GraphQL(Vec<GraphqlError>),
+
+    /// A required environment variable was missing.
+    #[error("missing environment variable: {0}")]
+    MissingEnvVar(&'static str),
 }
 
 fn format_errors(errors: &[GraphqlError]) -> String {

@@ -3,7 +3,7 @@ name = "shopify_customer_account"
 version = "0.1.0"
 edition = "2024"
 authors = ["Torben A. Flessner <git@flessner.dev>"]
-description = "Unofficial Rust client for the Shopify Customer Account API"
+description = "Client for the Shopify Customer Account API"
 repository = "https://github.com/flessner/shopify-rs"
 license = "MIT OR Apache-2.0"
 

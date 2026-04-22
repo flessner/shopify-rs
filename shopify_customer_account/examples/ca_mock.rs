@@ -1,8 +1,8 @@
 //! Demonstrates querying the Shopify Customer Account API with a typed cynic query.
 //!
-//! Uses Shopify's `demostore.mock.shop` as the shop domain. Obtain an OAuth
-//! access token by logging in at https://demostore.mock.shop and supplying it
-//! through an environment variable:
+//! Uses Shopify's `demostore.mock.shop` as the shop domain. The OpenID and
+//! Customer Account configurations are fetched without any token. To also
+//! query the authenticated customer endpoint, set the access token:
 //!
 //! ```sh
 //! SHOPIFY_CA_TOKEN=your_access_token cargo run --example ca_mock
@@ -41,13 +41,36 @@ struct CustomerQuery {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let access_token = std::env::var("SHOPIFY_CA_TOKEN")
-        .expect("SHOPIFY_CA_TOKEN environment variable not set");
-
     let client = Client::new("demostore.mock.shop");
+
+    // --- Unauthenticated: OpenID configuration ---
+    let oidc = client.fetch_openid_config().await?;
+    println!("=== OpenID Configuration ===");
+    println!("Issuer:                 {}", oidc.issuer);
+    println!("Authorization endpoint: {}", oidc.authorization_endpoint);
+    println!("Token endpoint:         {}", oidc.token_endpoint);
+    println!("End-session endpoint:   {}", oidc.end_session_endpoint);
+    println!("JWKS URI:               {}", oidc.jwks_uri);
+
+    // --- Unauthenticated: Customer Account API configuration ---
+    let ca_config = client.fetch_customer_account_config().await?;
+    println!("\n=== Customer Account API Configuration ===");
+    println!("GraphQL API: {}", ca_config.graphql_api);
+    println!("MCP API:     {}", ca_config.mcp_api);
+
+    // --- Authenticated: customer profile (requires CA token) ---
+    let access_token = match std::env::var("SHOPIFY_CA_TOKEN") {
+        Ok(t) => t,
+        Err(_) => {
+            println!("\nSHOPIFY_CA_TOKEN not set — skipping authenticated customer query.");
+            return Ok(());
+        }
+    };
+
     let data = client.run(CustomerQuery::build(()), &access_token).await?;
 
     let c = data.customer;
+    println!("\n=== Customer ===");
     println!("ID:           {}", c.id.inner());
     println!("Display name: {}", c.display_name);
     println!(

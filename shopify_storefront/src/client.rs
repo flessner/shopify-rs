@@ -10,6 +10,7 @@ use serde::de::DeserializeOwned;
 /// ```no_run
 /// let client = Client::new("my-store.myshopify.com");
 /// ```
+#[derive(Clone)]
 pub struct Client {
     http: reqwest::Client,
     endpoint: String,
@@ -27,6 +28,25 @@ impl Client {
             endpoint,
             token: String::new(),
         }
+    }
+
+    /// Creates a client from environment variables.
+    ///
+    /// - `SHOPIFY_DOMAIN` — required. The shop domain, e.g. `mock.shop`.
+    /// - `SHOPIFY_SF_TOKEN` — optional. The public Storefront access token.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::MissingEnvVar`] if `SHOPIFY_DOMAIN` is not set.
+    pub fn from_env() -> Result<Self, crate::Error> {
+        let domain = std::env::var("SHOPIFY_DOMAIN")
+            .map_err(|_| crate::Error::MissingEnvVar("SHOPIFY_DOMAIN"))?;
+
+        let token = std::env::var("SHOPIFY_SF_TOKEN").unwrap_or_default();
+
+        let mut client = Self::new(domain);
+        client.token(token);
+        Ok(client)
     }
 
     /// Sets the Storefront API access token.

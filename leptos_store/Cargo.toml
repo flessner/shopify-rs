@@ -1,0 +1,54 @@
+[package]
+name = "leptos_store"
+version = "0.1.0"
+edition = "2024"
+authors = ["Torben A. Flessner <git@flessner.dev>"]
+description = "Example Leptos storefront using leptos_shopify"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[features]
+ssr = [
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
+    "leptos_axum",
+    "axum",
+    "tokio",
+    "dotenvy",
+]
+hydrate = ["leptos/hydrate", "dep:wasm-bindgen"]
+
+[dependencies]
+leptos = { version = "0.8" }
+leptos_meta = { version = "0.8" }
+leptos_router = { version = "0.8" }
+leptos_shopify = { path = "../leptos_shopify" }
+wasm-bindgen = { version = "0.2", optional = true }
+
+# SSR-only
+leptos_axum = { version = "0.8", optional = true }
+axum = { version = "0.8", optional = true }
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+], optional = true }
+dotenvy = { version = "0.15", optional = true }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "leptos_store"
+path = "src/main.rs"
+required-features = ["ssr"]
+
+[package.metadata.leptos]
+output-name = "leptos_store"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+site-addr = "127.0.0.1:3000"
+reload-port = 3001
+bin-features = ["ssr"]
+lib-features = ["hydrate"]
+tailwind-input-file = "src/main.css"
